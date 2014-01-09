@@ -9,9 +9,9 @@ public class BallShooter : MonoBehaviour {
       RaycastHit hit;
       if (Physics.Raycast(ray, out hit)) {
         var hittee = hit.transform.gameObject;
-        var ballShrinker = hittee.GetComponent<BallShrinker>();
-        if (ballShrinker != null) {
-          ballShrinker.Shrink();
+        if (hittee.tag == "Ball") {
+          var direction = hittee.transform.localPosition - hit.point;
+          hittee.GetComponent<Rigidbody>().AddForceAtPosition(direction * 500, hit.point, ForceMode.Impulse);
         }
       }
     }
